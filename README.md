@@ -1,6 +1,6 @@
 # demo-koa-ts-typeorm
 
-一个小的登陆接口，基于 koa，orm 用的 typeORM
+一个小的koa demo，基于koa框架，typescript写的，orm用的typeOrm
 
 搭建环境
 
