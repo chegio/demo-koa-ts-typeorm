@@ -1,4 +1,4 @@
-# login-koa
+# demo-koa-ts-typeorm
 
 一个小的登陆接口，基于 koa，orm 用的 typeORM
 
