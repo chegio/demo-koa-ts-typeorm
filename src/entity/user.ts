@@ -1,19 +1,21 @@
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
-@Entity()
+@Entity({ name: "user" })
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
-  @Column()
-  userNo: string;
-  @Column()
+  //@Column({ name: "user_no" })
+  //userNo: string;
+  @Column({ name: "user_name" })
   userName: string;
-  @Column()
-  passwdSh1: string;
-  @Column()
+  @Column({ name: "passwd_sha1" })
+  passwdSha1: string;
+  @Column({ name: "mobile" })
   mobile: string;
-  @Column("datetime")
+  @Column({ name: "delete_flag" })
+  deleteFlag: number;
+  @Column({ name: "created_at" })
   createdAt: Date;
-  @Column("datetime")
+  @Column({ name: "updated_at" })
   updatedAt: Date;
 }

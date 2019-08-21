@@ -73,6 +73,8 @@ npm 安装其他依赖
 npm install mysql --save -g # --save: -g 全局安装
 npm install typeorm --save  # TypeORM
 npm install reflect-metadata --save  # 依赖模块
+npm i redis --save
+npm install ioredis --save
 ```
 
 TypeScript 配置

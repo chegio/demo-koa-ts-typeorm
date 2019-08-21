@@ -1,0 +1,24 @@
+default:
+  type: "mysql"
+  host: 118.25.149.140
+  port: 3306
+  username: "root"
+  password: "123456"
+  database: "koamysql"
+  synchronize: false
+  logging: true
+  logger: "advanced-console" #高亮字体的打印信息
+  entities:
+    - "src/entity/*.ts"
+  migrations:
+    - "src/migration/*.ts"
+  subscribers:
+    - "src/subscriber/*.ts"
+  extra:
+    # 连接池最大连接数量, 查阅资料 建议是  core number  * 2 + n
+    connectionLimit: 10
+#  cache:
+#    type: "redis"
+#    options:
+#      host: "127.0.0.1"
+#      port: 6379
