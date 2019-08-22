@@ -2,7 +2,7 @@ import * as Koa from "koa";
 import * as Router from "koa-router";
 import * as bodyParser from "koa-bodyparser";
 import AppRoutes from "./routes";
-import { doConnection } from "./db/config";
+import { doConnection } from "./config/db-config";
 import { URLFilter } from "./util/url-filter";
 import onerror = require("koa-onerror");
 //import logger = require("koa-logger");
