@@ -1,6 +1,6 @@
 # demo-koa-ts-typeorm
 
-一个小的koa demo，基于koa框架，typescript写的，orm用的typeORM
+一个小的 koa demo，基于 koa 框架，typescript 写的，orm 用的 typeORM
 
 搭建环境
 
@@ -37,40 +37,34 @@ koa2 hello-koa #在当前目录下生成一个新的名为“hello-koa”的koa�
 koa2 #在当前目录下生成项目
 ```
 
-用 koa 脚手架生成的目录结构
+目前项目结构（mvc）
 
 ```
-durian/（项目名称）
-         |----  bin
-                     |---- www （启动文件）
+chegio/（项目名称）
+         |----  doc
+                     |---- .sql （外部说明文档，初始化sql文件）
          |----  node_modules
                      |---- 安装的各种依赖
-         |----  public
-                     |---- image
-                     |---- style
-                     |---- javascript
-         |----  router
-                     |---- index.js （路由）
-                     |---- users.js
-         |----  view
-                     |---- layout.jade（.jade 源于 Node.js 的 HTML 模板引擎，类似于.ejs模板 )
-                     |---- index.jade
-                     |---- error.jade
-         |----  app.js
+         |----  src
+                     |---- config （各配置文件）
+                     |---- controller
+                     |---- dao （数据处理）
+         |----  entity （实体module）
+                     |---- users.ts
+         |----  util
+                     |---- sha1.ts （sha1加密）
+         |----  index.ts
+         |----  ormconfig.yml （typeORM配置文件）
+         |----  tsconfig.json （ts配置文件）
          |----  package.json
 ```
 
-5.切换当前目录，安装依赖包
+5.切换当前目录，安装相关依赖包
 
 ```
 npm install
-```
 
-npm 安装其他依赖
-安装 mysql
-
-```
-npm install mysql --save -g # --save: -g 全局安装
+npm install mysql --save -g # --save: -g 全局安装mysql
 npm install typeorm --save  # TypeORM
 npm install reflect-metadata --save  # 依赖模块
 npm i redis --save
