@@ -4,12 +4,43 @@ import { redis } from "../config/redis-config";
 export default class UserController {
   static async signIn(ctx) {
     //redis.set("sessionId", account);
+    let req = ctx.request.body;
+    if (req.username && req.passwd) {
+      try {
+        let user = await UserDao.getUserByOpt({ username: req.username });
+        console.log(
+          "user.passwdsha1:",
+          user.passwdSha1,
+          " req.passwd: ",
+          req.passwd
+        );
+        if (user.passwdSha1 == req.passwd) {
+          ctx.body = {
+            code: 200,
+            msg: "sign in ok"
+          };
+        } else {
+          ctx.response.status = 422;
+          ctx.body = {
+            code: 20001,
+            msg: "password error"
+          };
+        }
+        ctx.response.status = 200;
+      } catch (err) {
+        ctx.response.status = 404;
+        ctx.body = {
+          code: 20009,
+          msg: "sign error",
+          data: err
+        };
+      }
+    }
   }
 
   // 注册用户
   static async register(ctx) {
     let req = ctx.request.body;
-    console.log(req);
     if (req.username && req.password && req.mobile) {
       try {
         let user = new User();
@@ -33,7 +64,7 @@ export default class UserController {
         };
       }
     } else {
-      ctx.response.status = 404;
+      ctx.response.status = 422;
       ctx.body = {
         code: 20004,
         msg: "params error"
@@ -60,7 +91,7 @@ export default class UserController {
         };
       }
     } else {
-      ctx.response.status = 404;
+      ctx.response.status = 422;
       ctx.body = {
         code: 20002,
         msg: "user id error"
@@ -93,7 +124,7 @@ export default class UserController {
         };
       }
     } else {
-      ctx.response.status = 404;
+      ctx.response.status = 422;
       ctx.body = {
         code: 20004,
         msg: "params error"
@@ -120,28 +151,44 @@ export default class UserController {
         };
       }
     } else {
-      ctx.response.status = 404;
+      ctx.response.status = 422;
       ctx.body = {
         code: 20002,
         msg: "user id error"
       };
     }
   }
-  // 获取所有用户
+  // 获取用户列表
   static async getAllUsers(ctx) {
+    let users: User[];
     try {
-      let users = await UserDao.getAllUser();
+      if (ctx.request.query.page && ctx.request.query.perpage) {
+        let offset = (ctx.request.query.page - 1) * ctx.request.query.perpage;
+
+        users = await UserDao.getUsersPaged(offset, ctx.request.query.perpage);
+        ctx.body = {
+          code: 200,
+          msg: "success",
+          data: {
+            page: ctx.request.query.page,
+            perPage: ctx.request.query.perpage,
+            users: users
+          }
+        };
+      } else {
+        users = await UserDao.getAllUsers();
+        ctx.body = {
+          code: 200,
+          msg: "success",
+          data: users
+        };
+      }
       ctx.response.status = 200;
-      ctx.body = {
-        code: 200,
-        msg: "success",
-        data: users
-      };
     } catch (err) {
       ctx.response.status = 404;
       ctx.body = {
         code: 20007,
-        msg: "get users error",
+        msg: "get user list error",
         data: err
       };
     }

@@ -10,6 +10,10 @@ export const UserDao = {
     const userRepo = getRepository(User);
     return await userRepo.findOne({ id: userNum });
   },
+  getUserByOpt: async (opts: { [key: string]: any }) => {
+    const userRepo = getRepository(User);
+    return await userRepo.findOne(opts);
+  },
   updUser: async (userNum, user: User) => {
     const userRepo = getRepository(User);
     return await userRepo.update(
@@ -32,7 +36,18 @@ export const UserDao = {
       }
     );
   },
-  getAllUser: async () => {
+  getUsersPaged: async (offset, perPage: number) => {
+    const userRepo = getRepository(User);
+    return await userRepo
+      .createQueryBuilder("user")
+      .where("user.delete_flag = :deleteFlag", { deleteFlag: 0 })
+      .orderBy("user.id", "ASC")
+      .offset(offset)
+      .limit(perPage)
+      .getMany();
+    //xreturn await userRepo.createQueryBuilder("user").where("user.delete_flag = :deleteFlag",{deleteFlag:0}).skip(5).limit(3);
+  },
+  getAllUsers: async () => {
     const userRepo = getRepository(User);
     return await userRepo.find({ deleteFlag: 0 });
   }

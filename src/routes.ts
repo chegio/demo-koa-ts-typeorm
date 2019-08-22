@@ -3,8 +3,8 @@ import UserController from "./controller/user-controller";
 export default [
   {
     // 登录
-    path: "/user/signIn",
-    method: "get",
+    path: "/users/signin",
+    method: "post",
     action: UserController.signIn
   },
   {
